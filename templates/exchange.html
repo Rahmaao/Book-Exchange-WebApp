@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+
+{% block title %}Book Exchange{% endblock %}
+
+{% block content %}
+<h2>Book Exchange</h2>
+<div>
+
+</div>
+<div>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="/static/index.css">
+    </head>
+
+    <body>
+
+        <!-- Display Message -->
+        <div class="display-message">
+        
+
+        </div>
+        <!-- Input Area -->
+        <div class="input-area">
+        <form method="POST">
+        {{ form.crsf_token }}
+
+        {{ form.book.label }} {{ form.book(class_="book-selection"+form.book.name) }}
+        {% for subfield in form.consent %}
+            <tr>
+                <td>{{ subfield(class_="consent-selection"+subfield.name) }}</td>
+                <td>{{ subfield.label }}</td> 
+            </tr>
+        {% endfor %}
+        <button type="submit id="send_message"">SEND</button>
+        
+        </form>
+         </div>
+
+         <!-- SocketIO JS -->
+         <script src="{{ url_for('static', filename='scripts/socket.io.dev.js') }}" ></script>
+         <script src="{{ url_for('static', filename='scripts/kikasocket.js') }}"></script>
+    </body>
+</div>
+
+{% endblock %}

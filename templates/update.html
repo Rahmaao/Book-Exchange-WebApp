@@ -1,0 +1,24 @@
+{% extends 'layout.html' %}
+
+{% block title %}My Library
+{% endblock %}
+
+{% block content %}
+<h2>Update Profile</h2>
+<div>
+
+    <form action="update", method="post" enctype="multipart/form-data">
+        {{ msg }}
+        <label><input type="password" id="password" name="password">New Password</label>
+        <br>
+        <label><input type="password" id="confirm-password" name="confirm-password">Confirm Password</label>
+        <br>
+        <label><input type="file" name="profile-photo" id="profile-photo">Add Profile Photo</label>
+        <br>
+        <input type="submit" value="submit">
+        <br>
+
+    </form>
+</div>
+
+{% endblock %}

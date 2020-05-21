@@ -1,0 +1,43 @@
+{% extends 'layout.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<h2>Welcome back, {{ username }}!
+    {{ msg }}</h2>
+    
+    <html>
+        <head>
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+            <link rel="stylesheet" href="/static/search.css">
+        </head>
+        <body>
+            <h2><center>Search for Books</center></h2>
+            <form class="example" method="post" action="" style="margin:auto;max-width:600px">
+                <!-- <button type="submit"><span class="material-icons"></span><i class="fa fa-search"></i></button> -->
+                <input type="text" placeholder="Search by author or book, or all to see all the data" name="book">
+                <button type="submit"><span class="material-icons"></span><i class="fa fa-search"></i></button>
+            </form>
+    
+    
+
+    
+    <div>
+        <h2>Featured Books</h2>
+        <body>   
+            {% for item in data
+                 %}
+                <tr>
+                    <ul>
+                    <td> <a href="{{ url_for('download', filename=item[0], title=item[1], author=item[2]) }}">{{item[1]}} by {{item[2]}} </a></td>
+                    </br>
+                </ul>
+                </tr>
+            {% endfor %}
+        </body>
+        </div>
+    </html>   
+{% endblock %}
+

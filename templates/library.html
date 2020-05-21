@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}My Library
+{% endblock %}
+
+{% block content %}
+<h2>My Library</h2>
+
+<div>
+    <h3>Upload Your Book</h3>
+    <h4>{{ msg }}</h4>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="book">Upload Book</label>
+        <input type="file" name="book" id="book">
+        <br>
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title">
+        <br>
+        <label for="author">Author</label>
+        <input type="text" name="author" id="author">
+        <br>
+        <button type="submit">Upload</button>
+        <br>
+    </form>
+</div>
+
+<div>
+    <h2>My Uploads</h2>
+    <body>   
+        {% for item in data
+             %}
+            <tr>
+                <ul>
+                <td> <a href="{{ url_for('download', filename=item[0], title=item[1], author=item[2]) }}">{{item[1]}} by {{item[2]}} </a></td>
+                </br>
+            </ul>
+            </tr>
+        {% endfor %}
+    </body>
+    </div>
+{% endblock %}

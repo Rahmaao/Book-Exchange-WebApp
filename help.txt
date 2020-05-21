@@ -1,0 +1,77 @@
+ flask run --host 0.0.0.0
+
+  links = {text[0]:f'download/{text[0]}' for text in data}
+                links = {t:l.replace(' ', '') for t,l in links.items()}
+
+pip install flask-wtf
+pip install flask-uploads
+pip install mysql-connector-python
+pip install re?
+
+
+CREATE TABLE `newbooks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `booklink` varchar(45) NOT NULL,
+  `title` varchar(45) NOT NULL,
+  `author` varchar(45) NOT NULL,
+  `uploader` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+
+UPDATED BOOKS TABLE.
+
+CREATE TABLE `newbooks` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `booklink` varchar(100) NOT NULL,
+  `title` varchar(100) NOT NULL,
+  `author` varchar(100) NOT NULL,
+  `uploader` varchar(100) NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `id_UNIQUE` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+
+
+UPDATED ACCOUNTS TABLE
+
+CREATE TABLE `accounts` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `username` varchar(50) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `profilepic` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+
+
+
+TO FIX YOUR PREVIEW PROBLEM.
+
+The issue was mostly mine because of where I was uploading from.
+It seems only the 'static' folder is accessible from the client side.
+
+Below is a snippet from profile.html, where i successfully retrieved files from the server
+
+<img src="{{ url_for('static', filename=['uploads/images/', account['profilepic']]|join) }}"
+i'm going to guess yours would go something like this
+
+{{ url_for('static', filename=['uploads/books/', book['booklink']|join]) }}
+The first part is pretty straight forward. The second part is the jinja way of concatenating strings
+it takes in strings in a list ['first string', 'second string'] and then they're joined with...
+well '|join'. Everything becomes... ['first string', 'second string']|join which returns
+'first stringsecond string'
+
+
+I also moved the upload to the library page, it makes more sense there, i think.
+And added an edit to the profile page, where the user can change their password,
+and add a profile picture.
+
+
+Conversation page form = Dropdown, radio button. Send button.
+
+
+python-login
+sql alchemy
+how to set classes with wtforms DONE
+
+

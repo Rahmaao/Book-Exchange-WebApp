@@ -1,0 +1,49 @@
+<head>
+    <link rel="stylesheet" href="/static/tab.css">
+</head>
+<div class="tabbable"> <!-- Only required for left/right tabs -->
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#featuredbooks" data-toggle="tab">Featured Books</a></li>
+      <li><a href="#featureddiscussions" data-toggle="tab">Featured Discussions</a></li>
+    </ul>
+    <div class="tab-content">
+      <div class="tab-pane active" id="tab1">
+        <style>
+            table {
+              border-collapse: collapse;
+            }
+            
+            table, td, th {
+              border: 1px solid black;
+            }
+            </style>
+            </head>
+          
+        <table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>book</th>
+        <th>uploader</th>
+        <th>author</th>
+        <th>name</th>
+    </tr>
+    </thead>
+    <tbody>
+        {% for row in data %} 
+            <tr>
+                <td>{{row[0]}}</td>
+                <td>{{row[1]}}</td>
+                <td>{{row[2]}}</td>
+                <td>{{row[3]}}</td>
+                <td>{{row[4]}}</td>
+            </tr>
+        {% endfor %}       
+    </tbody>
+</table>
+      </div>
+      <div class="tab-pane" id="tab2">
+        <p>Howdy, I'm in Section 2.</p>
+      </div>
+    </div>
+  </div>
