@@ -31,7 +31,11 @@
              %}
             <tr>
                 <ul>
-                <td> <a href="{{ url_for('download', filename=item[0], title=item[1], author=item[2]) }}">{{item[1]}} by {{item[2]}} </a></td>
+                <td> 
+                    <a href="{{ url_for('download', filename=item[0], title=item[1], author=item[2]) }}">{{item[1]}} by {{item[2]}}
+                        <img src="{{ url_for('static', filename=['uploads/books/', item[5]]|join)}}"  style="width:42px;height:42px;">
+                      </a>                
+                    </td>
                 </br>
             </ul>
             </tr>
@@ -39,3 +43,14 @@
     </body>
     </div>
 {% endblock %}
+
+
+<img src="/static/uploads/books/Library_Management_System_1.pdf.jpg" style="width:42px;height:42px;">
+
+
+
+<img src='static/uploads/books/' + bookpage, style="width:42px;height:42px;">
+
+'static/uploads/books/' + bookpage
+
+<img src="{{ url_for('static', filename=['uploads/books/', account['profilepic']]|join) }}"

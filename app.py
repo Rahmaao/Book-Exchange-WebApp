@@ -9,6 +9,7 @@ from flask_wtf import FlaskForm
 from wtforms import FileField, StringField,validators, SelectField, RadioField
 from flask_wtf.file import FileAllowed
 import os
+from pdf2image import convert_from_path
 
 app = Flask(__name__)
 app.secret_key = 'te amo'
@@ -170,7 +171,7 @@ def profile():
 @app.route('/library')
 def ulibrary():
     if 'loggedin' in session:
-        cursor.execute('SELECT booklink, title, author from newbooks WHERE uploader = %s', (session['username'],))
+        cursor.execute('SELECT booklink, title, author, bookpage from newbooks WHERE uploader = %s', ( session['username'],))
         conn.commit()
         data = cursor.fetchall() #data from database
         return render_template('library.html', username=session['username'], data=data)
@@ -188,20 +189,23 @@ def library(msg=''):
         booklink = secure_filename(f.filename)
         f.save('static/uploads/books/' + booklink)
         username = session['username']
+        pages = convert_from_path('static/uploads/books/'+ booklink)
+        bookpage = booklink + '.jpg'
+        page = pages[0]
+        page.save('static/uploads/books/' + bookpage, 'JPEG')
 
         try:
-            cursor.execute('INSERT INTO newbooks VALUES (NULL, %s, %s, %s,%s)', (booklink, title, author, username))
+            cursor.execute('INSERT INTO newbooks VALUES (NULL, %s, %s, %s,%s,%s)', (booklink, title, author, username, bookpage))
+            # mysql.connection.commit()
+            # cursor.execute('UPDATE newbooks SET bookpage = %s WHERE booklink = %s', (bookpage, booklink))
+            # cursor.execute('UPDATE accounts SET profilepic = %s WHERE id = %s', (pic_name, session['id']))
             mysql.connection.commit()
             return render_template('library.html', msg='Upload successful')
         except (MySQLdb.Error, MySQLdb.Warning) as e:
             print(e)
             return e
-
+        
     return render_template('library.html', msg=msg)
-
-
-
-
 
 
 
@@ -257,6 +261,12 @@ def update():
 
 
     return render_template('update.html', msg=msg)
+
+
+
+        
+
+
 
 # @app.before_request
 # def before_request():
